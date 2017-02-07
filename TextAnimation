@@ -1,0 +1,143 @@
+import fl.transitions.Tween;
+import fl.transitions.easing.*;
+import fl.transitions.TweenEvent;
+import fl.transitions.*;
+import flash.events.MouseEvent;
+import flash.events.Event; 
+import flash.media.Sound; 
+import flash.net.URLRequest
+import flash.geom.ColorTransform;
+
+//---sound Events Code------//
+btn4.addEventListener(MouseEvent.CLICK, res);
+btn5.addEventListener(MouseEvent.CLICK, res);
+var snd:Sound = new Sound(new URLRequest("D:/world.mp3")); 
+var channel:SoundChannel;
+var pausePosition:int;
+
+//trace(e1.y);
+c2.x=c1.x;
+c2.y=c1.y;
+r2.x=r1.x;
+r2.y=r1.y;
+y2.x=y1.x;
+y2.y=y1.y;
+
+//----Timer Event Code-----//
+function delayedFunctionCall(delay:int, func:Function) {
+    var timer:Timer = new Timer(delay, 1);
+    timer.addEventListener(TimerEvent.TIMER, func);
+    timer.start();
+}
+//------Moving Letters Code----//
+var myTween1:Tween = new Tween(c1, "y", Strong.easeOut, c2.y,c2.y+145, 5, true);
+delayedFunctionCall(4000, function(e:Event) {t11();});
+function t11():void{
+	var myTween11:Tween = new Tween(c1, "x", Strong.easeOut, c2.x,c2.x-40, 3, true);
+}
+
+delayedFunctionCall(8000, function(e:Event) {tt();});
+function tt():void{
+var myTween2:Tween = new Tween(r1, "y", Strong.easeOut, r2.y,r2.y+145, 5, true);
+}
+
+delayedFunctionCall(12000, function(e:Event) {ttr();});
+function ttr():void{
+var myTween2:Tween = new Tween(r1, "x", Strong.easeOut, r2.x,r2.x, 5, false);
+}
+
+delayedFunctionCall(13000, function(e:Event) {tt1();});
+function tt1():void{
+var myTween3:Tween = new Tween(y1, "y", Strong.easeOut, y2.y,y2.y+145, 5, true);
+}
+
+delayedFunctionCall(18000, function(e:Event) {tt2();});
+function tt2():void{
+	var myTween11:Tween = new Tween(y1, "x", Strong.easeOut, y2.x,y2.x-26, 3, true);
+}
+
+
+delayedFunctionCall(19500, function(e:Event) {hgt();});
+function hgt():void{
+	msk();
+    TransitionManager.start(cmsk,{type:Fade, direction:Transition.IN, duration:17, easing:Strong.easeOut})
+	delayedFunctionCall(2000, function(e:Event) {c11();});
+}
+
+
+function c11():void{
+	colr();
+	//var rect:Rectangle = r1.getBounds(stage);
+	//trace(rect);
+}
+function msk():void{
+	cmsk.x=246.9;
+	cmsk.y=206.8;
+	cmsk.scaleX=4;
+	cmsk.scaleY=4;
+	c1.mask=rr3;
+	r1.mask=rr2;
+	y1.mask=rr1;
+}
+
+//function fl_FadeSymbolIn(event:Event)
+//{
+//	cmsk.alpha += 0.01;
+//	if(cmsk.alpha >= 1)
+//	{
+//		cmsk.removeEventListener(Event.ENTER_FRAME, fl_FadeSymbolIn);
+//	}
+//	TransitionManager.start(cmsk,{type:Fade, direction:Transition.IN, duration:15, easing:Strong.easeOut})
+//}
+
+
+//---- sound code-----//
+function res(e:Event):void{
+	var sss: String=e.currentTarget.name;
+	if(sss=="btn4"){
+		 channel = snd.play(pausePosition);
+		 trace(channel);
+	}
+	else if(sss=="btn5"){
+		 pausePosition = channel.position; 
+		 trace(pausePosition);
+		 channel.stop();
+	}
+}
+var valu:Number=2000;
+function colr():void{
+for(var i:int =0;i<8;i++)
+{
+	if((i%2)==0)
+	{
+		delayedFunctionCall(valu+1500, function(e:Event) {col1();})
+	}
+	else
+	{
+		delayedFunctionCall(valu+1500, function(e:Event) {col2();})
+	}
+	valu+=1000;
+}
+}
+
+//----- Color Changing Effect------//
+function col1():void{
+	    trace(col1);trace(valu);
+	    var newColorTransform:ColorTransform = cmsk.transform.colorTransform;
+		newColorTransform.color = 0xFF0000;
+		cmsk.transform.colorTransform = newColorTransform;
+}
+function col2():void{
+	    trace(col2);
+		var newColorTransform:ColorTransform = cmsk.transform.colorTransform;
+		newColorTransform.color = 0xFFF245;
+		cmsk.transform.colorTransform = newColorTransform;
+	    delayedFunctionCall(12000, function(e:Event) {mks();})
+}
+
+//-------Masking Object Code------//
+function mks():void{
+	cmsk.mask=rr2;
+	cmsk.mask=rr1;
+	cmsk.mask=rr3;
+}
